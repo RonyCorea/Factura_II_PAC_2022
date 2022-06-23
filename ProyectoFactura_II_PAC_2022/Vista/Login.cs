@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +18,7 @@ namespace Vista
             InitializeComponent();
         }
 
-        private void AceptarButton_Click(object sender, EventArgs e)
+        private async void AceptarButton_Click(object sender, EventArgs e)
         {
             if (UsuarioTextBox.Text == string.Empty)
             {
@@ -34,6 +35,21 @@ namespace Vista
                 return;
             }
             errorProvider1.Clear();
+
+            UsuarioDatos usuarioDatos = new UsuarioDatos();
+
+            bool usuarioValido = await usuarioDatos.ValidarUsuarioAsync(UsuarioTextBox.Text, ClaveTextBox.Text);
+
+            if (usuarioValido)
+            {
+                PrincipalForm principalForm = new PrincipalForm();
+                this.Hide();
+                principalForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Datos de usuario incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
         }
 
