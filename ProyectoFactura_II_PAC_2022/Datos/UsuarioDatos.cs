@@ -92,5 +92,58 @@ namespace Datos
             return insert;
         }
 
+        public async Task<bool> ActualizarUsuarioAsync(Usuario usuario)
+        {
+            bool actualizo = false;
+            try
+            {
+                string sql = "UPDATE usuarios SET Nombre = @Nombre, Email = @Email, Clave = @Clave WHERE Codigo = @Codigo;";
+
+                using (MySqlConnection _conexion = new MySqlConnection(CanedaConexion.Cadena))
+                {
+                    await _conexion.OpenAsync();
+                    using (MySqlCommand comando = new MySqlCommand(sql, _conexion))
+                    {
+                        comando.CommandType = System.Data.CommandType.Text;
+                        comando.Parameters.Add("@Codigo", MySqlDbType.VarChar, 30).Value = usuario.Codigo;
+                        comando.Parameters.Add("@Nombre", MySqlDbType.VarChar, 60).Value = usuario.Nombre;
+                        comando.Parameters.Add("@Email", MySqlDbType.VarChar, 40).Value = usuario.Email;
+                        comando.Parameters.Add("@Clave", MySqlDbType.VarChar, 50).Value = usuario.Clave;
+                        await comando.ExecuteNonQueryAsync();
+                        actualizo = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return actualizo;
+        }
+
+        public async Task<bool> EliminarUsuarioAsync(string codigo)
+        {
+            bool elimino = false;
+            try
+            {
+                string sql = "DELETE FROM usuarios WHERE Codigo = @Codigo;";
+
+                using (MySqlConnection _conexion = new MySqlConnection(CanedaConexion.Cadena))
+                {
+                    await _conexion.OpenAsync();
+                    using (MySqlCommand comando = new MySqlCommand(sql, _conexion))
+                    {
+                        comando.CommandType = System.Data.CommandType.Text;
+                        comando.Parameters.Add("@Codigo", MySqlDbType.VarChar, 30).Value = codigo;
+                        await comando.ExecuteNonQueryAsync();
+                        elimino = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return elimino;
+        }
+
     }
 }
