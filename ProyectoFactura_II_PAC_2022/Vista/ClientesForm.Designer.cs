@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.NombreTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,7 +38,17 @@
             this.EmailTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.FotoPictureBox = new System.Windows.Forms.PictureBox();
+            this.ClientesDataGridView = new System.Windows.Forms.DataGridView();
+            this.GuardarButton = new System.Windows.Forms.Button();
+            this.CancelarButton = new System.Windows.Forms.Button();
+            this.EliminarButton = new System.Windows.Forms.Button();
+            this.ModificarButton = new System.Windows.Forms.Button();
+            this.NuevoButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.BuscarFotoButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FotoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClientesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -51,6 +62,7 @@
             // 
             // NombreTextBox
             // 
+            this.NombreTextBox.Enabled = false;
             this.NombreTextBox.Location = new System.Drawing.Point(145, 68);
             this.NombreTextBox.Name = "NombreTextBox";
             this.NombreTextBox.Size = new System.Drawing.Size(231, 22);
@@ -67,6 +79,7 @@
             // 
             // IdentidadMaskedTextBox
             // 
+            this.IdentidadMaskedTextBox.Enabled = false;
             this.IdentidadMaskedTextBox.Location = new System.Drawing.Point(145, 25);
             this.IdentidadMaskedTextBox.Mask = "0000-0000-00000";
             this.IdentidadMaskedTextBox.Name = "IdentidadMaskedTextBox";
@@ -75,6 +88,7 @@
             // 
             // DireccionTextBox
             // 
+            this.DireccionTextBox.Enabled = false;
             this.DireccionTextBox.Location = new System.Drawing.Point(145, 107);
             this.DireccionTextBox.Name = "DireccionTextBox";
             this.DireccionTextBox.Size = new System.Drawing.Size(231, 22);
@@ -91,6 +105,7 @@
             // 
             // EmailTextBox
             // 
+            this.EmailTextBox.Enabled = false;
             this.EmailTextBox.Location = new System.Drawing.Point(145, 147);
             this.EmailTextBox.Name = "EmailTextBox";
             this.EmailTextBox.Size = new System.Drawing.Size(231, 22);
@@ -107,17 +122,101 @@
             // 
             // FotoPictureBox
             // 
+            this.FotoPictureBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.FotoPictureBox.Location = new System.Drawing.Point(424, 25);
             this.FotoPictureBox.Name = "FotoPictureBox";
             this.FotoPictureBox.Size = new System.Drawing.Size(206, 144);
+            this.FotoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.FotoPictureBox.TabIndex = 9;
             this.FotoPictureBox.TabStop = false;
+            // 
+            // ClientesDataGridView
+            // 
+            this.ClientesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClientesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ClientesDataGridView.Location = new System.Drawing.Point(-2, 238);
+            this.ClientesDataGridView.Name = "ClientesDataGridView";
+            this.ClientesDataGridView.Size = new System.Drawing.Size(672, 181);
+            this.ClientesDataGridView.TabIndex = 10;
+            // 
+            // GuardarButton
+            // 
+            this.GuardarButton.Location = new System.Drawing.Point(435, 200);
+            this.GuardarButton.Name = "GuardarButton";
+            this.GuardarButton.Size = new System.Drawing.Size(91, 32);
+            this.GuardarButton.TabIndex = 18;
+            this.GuardarButton.Text = "Guardar";
+            this.GuardarButton.UseVisualStyleBackColor = true;
+            this.GuardarButton.Click += new System.EventHandler(this.GuardarButton_Click);
+            // 
+            // CancelarButton
+            // 
+            this.CancelarButton.Location = new System.Drawing.Point(532, 200);
+            this.CancelarButton.Name = "CancelarButton";
+            this.CancelarButton.Size = new System.Drawing.Size(91, 32);
+            this.CancelarButton.TabIndex = 17;
+            this.CancelarButton.Text = "Cancelar";
+            this.CancelarButton.UseVisualStyleBackColor = true;
+            this.CancelarButton.Click += new System.EventHandler(this.CancelarButton_Click);
+            // 
+            // EliminarButton
+            // 
+            this.EliminarButton.Location = new System.Drawing.Point(338, 200);
+            this.EliminarButton.Name = "EliminarButton";
+            this.EliminarButton.Size = new System.Drawing.Size(91, 32);
+            this.EliminarButton.TabIndex = 16;
+            this.EliminarButton.Text = "Eliminar";
+            this.EliminarButton.UseVisualStyleBackColor = true;
+            this.EliminarButton.Click += new System.EventHandler(this.EliminarButton_Click);
+            // 
+            // ModificarButton
+            // 
+            this.ModificarButton.Location = new System.Drawing.Point(241, 199);
+            this.ModificarButton.Name = "ModificarButton";
+            this.ModificarButton.Size = new System.Drawing.Size(91, 32);
+            this.ModificarButton.TabIndex = 15;
+            this.ModificarButton.Text = "Modificar";
+            this.ModificarButton.UseVisualStyleBackColor = true;
+            this.ModificarButton.Click += new System.EventHandler(this.ModificarButton_Click);
+            // 
+            // NuevoButton
+            // 
+            this.NuevoButton.Location = new System.Drawing.Point(144, 199);
+            this.NuevoButton.Name = "NuevoButton";
+            this.NuevoButton.Size = new System.Drawing.Size(91, 33);
+            this.NuevoButton.TabIndex = 14;
+            this.NuevoButton.Text = "Nuevo";
+            this.NuevoButton.UseVisualStyleBackColor = true;
+            this.NuevoButton.Click += new System.EventHandler(this.NuevoButton_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // BuscarFotoButton
+            // 
+            this.BuscarFotoButton.Location = new System.Drawing.Point(602, 169);
+            this.BuscarFotoButton.Name = "BuscarFotoButton";
+            this.BuscarFotoButton.Size = new System.Drawing.Size(28, 25);
+            this.BuscarFotoButton.TabIndex = 19;
+            this.BuscarFotoButton.Text = "...";
+            this.BuscarFotoButton.UseVisualStyleBackColor = true;
+            this.BuscarFotoButton.Click += new System.EventHandler(this.BuscarFotoButton_Click);
             // 
             // ClientesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 414);
+            this.ClientSize = new System.Drawing.Size(669, 418);
+            this.Controls.Add(this.BuscarFotoButton);
+            this.Controls.Add(this.GuardarButton);
+            this.Controls.Add(this.CancelarButton);
+            this.Controls.Add(this.EliminarButton);
+            this.Controls.Add(this.ModificarButton);
+            this.Controls.Add(this.NuevoButton);
+            this.Controls.Add(this.ClientesDataGridView);
             this.Controls.Add(this.FotoPictureBox);
             this.Controls.Add(this.EmailTextBox);
             this.Controls.Add(this.label4);
@@ -128,10 +227,13 @@
             this.Controls.Add(this.NombreTextBox);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ClientesForm";
             this.Text = "Clientes";
+            this.Load += new System.EventHandler(this.ClientesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.FotoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClientesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +250,13 @@
         private System.Windows.Forms.TextBox EmailTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox FotoPictureBox;
+        private System.Windows.Forms.DataGridView ClientesDataGridView;
+        private System.Windows.Forms.Button GuardarButton;
+        private System.Windows.Forms.Button CancelarButton;
+        private System.Windows.Forms.Button EliminarButton;
+        private System.Windows.Forms.Button ModificarButton;
+        private System.Windows.Forms.Button NuevoButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button BuscarFotoButton;
     }
 }

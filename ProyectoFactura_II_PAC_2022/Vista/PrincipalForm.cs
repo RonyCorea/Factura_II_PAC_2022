@@ -17,6 +17,7 @@ namespace Vista
 
         UsuariosForm usuariosForm = null;
         ClientesForm clientesForm = null;
+        ProductoForm productoForm = null;
 
         private void ListaUsuariosToolStripButton_Click(object sender, EventArgs e)
         {
@@ -61,6 +62,26 @@ namespace Vista
         private void ClientesForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             clientesForm = null;
+        }
+
+        private void ProductosToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (productoForm == null)
+            {
+                productoForm = new ProductoForm();
+                productoForm.MdiParent = this;
+                productoForm.FormClosed += ProductoForm_FormClosed;
+                productoForm.Show();
+            }
+            else
+            {
+                productoForm.Activate();
+            }
+        }
+
+        private void ProductoForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            productoForm = null;
         }
     }
 }
