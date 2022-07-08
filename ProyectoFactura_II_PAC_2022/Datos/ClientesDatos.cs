@@ -152,6 +152,39 @@ namespace Datos
 
         }
 
+        public async Task<Cliente> GetPorIdentidadAsync(string identidad)
+        {
+            Cliente cliente = new Cliente();
+
+            try
+            {
+                string sql = "SELECT * FROM cliente WHERE Identidad = @Identidad;";
+
+                using (MySqlConnection _conexion = new MySqlConnection(CanedaConexion.Cadena))
+                {
+                    await _conexion.OpenAsync();
+                    using (MySqlCommand comando = new MySqlCommand(sql, _conexion))
+                    {
+                        comando.CommandType = System.Data.CommandType.Text;
+                        comando.Parameters.Add("@Identidad", MySqlDbType.VarString, 25).Value = identidad;
+
+                        MySqlDataReader dr = (MySqlDataReader)await comando.ExecuteReaderAsync();
+                        if (dr.Read())
+                        {
+                            cliente.Identidad = dr["Identidad"].ToString();
+                            cliente.Nombre = dr["Nombre"].ToString();
+                            cliente.Direccion = dr["Direccion"].ToString();
+                            cliente.Email = dr["Email"].ToString();
+                            cliente.Foto = (byte[])dr["Identidad"];
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return cliente;
+        }
 
     }
 }

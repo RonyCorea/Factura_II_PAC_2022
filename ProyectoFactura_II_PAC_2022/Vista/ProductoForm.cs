@@ -57,74 +57,81 @@ namespace Vista
 
         private async void GuardarButton_Click(object sender, EventArgs e)
         {
-            //Validaciones
-            if (string.IsNullOrEmpty(CodigoTextBox.Text))
+            try
             {
-                errorProvider1.SetError(CodigoTextBox, "Digite un codigo del producto");
-                CodigoTextBox.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(DescripcionTextBox.Text))
-            {
-                errorProvider1.SetError(DescripcionTextBox, "Digite una descripción del producto");
-                DescripcionTextBox.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(ExistenciaTextBox.Text))
-            {
-                errorProvider1.SetError(ExistenciaTextBox, "Digite una existencia del producto");
-                ExistenciaTextBox.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(PrecioTextBox.Text))
-            {
-                errorProvider1.SetError(PrecioTextBox, "Digite un precio del producto");
-                PrecioTextBox.Focus();
-                return;
-            }
-
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            ImagenPictureBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            producto.Codigo = CodigoTextBox.Text;
-            producto.Descripcion = DescripcionTextBox.Text;
-            producto.Existencia = Convert.ToInt32(ExistenciaTextBox.Text);
-            producto.Precio = Convert.ToDecimal(PrecioTextBox.Text);
-            producto.Imagen = ms.GetBuffer();
-
-            if (operacion == "nuevo")
-            {
-                bool inserto = await productoDatos.InsertarNuevoProductoAsync(producto);
-                if (inserto)
+                //Validaciones
+                if (string.IsNullOrEmpty(CodigoTextBox.Text))
                 {
-                    MessageBox.Show("Producto Registrado","Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarControles();
-                    DesabilitarControles();
-                    LlenarListaProductos();
+                    errorProvider1.SetError(CodigoTextBox, "Digite un codigo del producto");
+                    CodigoTextBox.Focus();
+                    return;
                 }
-                else
+                if (string.IsNullOrEmpty(DescripcionTextBox.Text))
                 {
-                    MessageBox.Show("Error al registrar el producto", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorProvider1.SetError(DescripcionTextBox, "Digite una descripción del producto");
+                    DescripcionTextBox.Focus();
+                    return;
+                }
+                if (string.IsNullOrEmpty(ExistenciaTextBox.Text))
+                {
+                    errorProvider1.SetError(ExistenciaTextBox, "Digite una existencia del producto");
+                    ExistenciaTextBox.Focus();
+                    return;
+                }
+                if (string.IsNullOrEmpty(PrecioTextBox.Text))
+                {
+                    errorProvider1.SetError(PrecioTextBox, "Digite un precio del producto");
+                    PrecioTextBox.Focus();
+                    return;
+                }
+
+                if (ImagenPictureBox.Image != null)
+                {
+                    System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                    ImagenPictureBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    producto.Imagen = ms.GetBuffer();
+                }
+
+                producto.Codigo = CodigoTextBox.Text;
+                producto.Descripcion = DescripcionTextBox.Text;
+                producto.Existencia = Convert.ToInt32(ExistenciaTextBox.Text);
+                producto.Precio = Convert.ToDecimal(PrecioTextBox.Text);
+                
+
+                if (operacion == "nuevo")
+                {
+                    bool inserto = await productoDatos.InsertarNuevoProductoAsync(producto);
+                    if (inserto)
+                    {
+                        MessageBox.Show("Producto Registrado", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LimpiarControles();
+                        DesabilitarControles();
+                        LlenarListaProductos();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar el producto", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if (operacion == "modificar")
+                {
+                    bool modifico = await productoDatos.ActualizarProductoAsync(producto);
+                    if (modifico)
+                    {
+                        MessageBox.Show("Producto Modificado", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LimpiarControles();
+                        DesabilitarControles();
+                        LlenarListaProductos();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al modificar el producto", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
-            else if (operacion == "modificar")
+            catch (Exception ex)
             {
-                bool modifico = await productoDatos.ActualizarProductoAsync(producto);
-                if (modifico)
-                {
-                    MessageBox.Show("Producto Modificado", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarControles();
-                    DesabilitarControles();
-                    LlenarListaProductos();
-                }
-                else
-                {
-                    MessageBox.Show("Error al modificar el producto", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
-
-
-
         }
 
 

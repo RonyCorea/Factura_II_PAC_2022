@@ -148,5 +148,40 @@ namespace Datos
             return _imagen;
 
         }
+
+        public async Task<Producto> GetPorCodigoAsync(string codigo)
+        {
+            Producto producto = new Producto(); 
+
+            try
+            {
+                string sql = "SELECT * FROM producto WHERE Codigo = @Codigo;";
+
+                using (MySqlConnection _conexion = new MySqlConnection(CanedaConexion.Cadena))
+                {
+                    await _conexion.OpenAsync();
+                    using (MySqlCommand comando = new MySqlCommand(sql, _conexion))
+                    {
+                        comando.CommandType = System.Data.CommandType.Text;
+                        comando.Parameters.Add("@Codigo", MySqlDbType.VarChar, 50).Value = codigo;
+
+                        MySqlDataReader dr = (MySqlDataReader)await comando.ExecuteReaderAsync();
+                        if (dr.Read())
+                        {
+                            producto.Codigo = dr["Codigo"].ToString();
+                            producto.Descripcion = dr["Descripcion"].ToString();
+                            producto.Existencia = (int)dr["Existencia"];
+                            producto.Precio = (decimal)dr["Precio"];
+                            producto.Imagen = (byte[])dr["Imagen"];
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return producto;
+        }
+
     }
 }
