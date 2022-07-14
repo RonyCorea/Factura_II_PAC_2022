@@ -32,14 +32,12 @@
             this.label8 = new System.Windows.Forms.Label();
             this.FechaFacturaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.NombreClienteLabel = new System.Windows.Forms.Label();
-            this.BuscarClienteButton = new System.Windows.Forms.Button();
             this.IdentidadMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.CantidadProductoTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.DescripcionProductoLabel = new System.Windows.Forms.Label();
-            this.BuscarProductoButton = new System.Windows.Forms.Button();
             this.CodigoProductoTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.DetalleFacturaDataGridView = new System.Windows.Forms.DataGridView();
@@ -52,6 +50,8 @@
             this.TotalTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.GuardarButton = new System.Windows.Forms.Button();
+            this.BuscarProductoButton = new System.Windows.Forms.Button();
+            this.BuscarClienteButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DetalleFacturaDataGridView)).BeginInit();
@@ -97,15 +97,6 @@
             this.NombreClienteLabel.Size = new System.Drawing.Size(48, 16);
             this.NombreClienteLabel.TabIndex = 3;
             this.NombreClienteLabel.Text = "Cliente";
-            // 
-            // BuscarClienteButton
-            // 
-            this.BuscarClienteButton.Image = global::Vista.Properties.Resources.lupas;
-            this.BuscarClienteButton.Location = new System.Drawing.Point(239, 26);
-            this.BuscarClienteButton.Name = "BuscarClienteButton";
-            this.BuscarClienteButton.Size = new System.Drawing.Size(36, 30);
-            this.BuscarClienteButton.TabIndex = 2;
-            this.BuscarClienteButton.UseVisualStyleBackColor = true;
             // 
             // IdentidadMaskedTextBox
             // 
@@ -167,15 +158,6 @@
             this.DescripcionProductoLabel.TabIndex = 5;
             this.DescripcionProductoLabel.Text = "Producto";
             // 
-            // BuscarProductoButton
-            // 
-            this.BuscarProductoButton.Image = global::Vista.Properties.Resources.lupas;
-            this.BuscarProductoButton.Location = new System.Drawing.Point(240, 25);
-            this.BuscarProductoButton.Name = "BuscarProductoButton";
-            this.BuscarProductoButton.Size = new System.Drawing.Size(36, 30);
-            this.BuscarProductoButton.TabIndex = 4;
-            this.BuscarProductoButton.UseVisualStyleBackColor = true;
-            // 
             // CodigoProductoTextBox
             // 
             this.CodigoProductoTextBox.Location = new System.Drawing.Point(91, 28);
@@ -201,6 +183,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DetalleFacturaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DetalleFacturaDataGridView.Enabled = false;
             this.DetalleFacturaDataGridView.Location = new System.Drawing.Point(1, 213);
             this.DetalleFacturaDataGridView.Name = "DetalleFacturaDataGridView";
             this.DetalleFacturaDataGridView.ReadOnly = true;
@@ -209,6 +192,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(4, 462);
             this.label4.Name = "label4";
@@ -218,6 +202,7 @@
             // 
             // ISVTextBox
             // 
+            this.ISVTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ISVTextBox.Location = new System.Drawing.Point(38, 459);
             this.ISVTextBox.Name = "ISVTextBox";
             this.ISVTextBox.ReadOnly = true;
@@ -226,13 +211,17 @@
             // 
             // DescuentoTextBox
             // 
+            this.DescuentoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DescuentoTextBox.Location = new System.Drawing.Point(241, 459);
             this.DescuentoTextBox.Name = "DescuentoTextBox";
             this.DescuentoTextBox.Size = new System.Drawing.Size(95, 22);
             this.DescuentoTextBox.TabIndex = 6;
+            this.DescuentoTextBox.Text = "0";
+            this.DescuentoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DescuentoTextBox_KeyPress);
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(160, 462);
             this.label5.Name = "label5";
@@ -242,6 +231,7 @@
             // 
             // SubTotalTextBox
             // 
+            this.SubTotalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SubTotalTextBox.Location = new System.Drawing.Point(425, 459);
             this.SubTotalTextBox.Name = "SubTotalTextBox";
             this.SubTotalTextBox.ReadOnly = true;
@@ -250,6 +240,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(351, 462);
             this.label6.Name = "label6";
@@ -259,6 +250,7 @@
             // 
             // TotalTextBox
             // 
+            this.TotalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.TotalTextBox.Location = new System.Drawing.Point(586, 459);
             this.TotalTextBox.Name = "TotalTextBox";
             this.TotalTextBox.ReadOnly = true;
@@ -267,6 +259,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(539, 462);
             this.label7.Name = "label7";
@@ -276,6 +269,7 @@
             // 
             // GuardarButton
             // 
+            this.GuardarButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GuardarButton.Image = global::Vista.Properties.Resources.Guardar;
             this.GuardarButton.Location = new System.Drawing.Point(786, 452);
             this.GuardarButton.Name = "GuardarButton";
@@ -284,6 +278,25 @@
             this.GuardarButton.Text = "Guardar";
             this.GuardarButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.GuardarButton.UseVisualStyleBackColor = true;
+            this.GuardarButton.Click += new System.EventHandler(this.GuardarButton_Click);
+            // 
+            // BuscarProductoButton
+            // 
+            this.BuscarProductoButton.Image = global::Vista.Properties.Resources.lupas;
+            this.BuscarProductoButton.Location = new System.Drawing.Point(240, 25);
+            this.BuscarProductoButton.Name = "BuscarProductoButton";
+            this.BuscarProductoButton.Size = new System.Drawing.Size(36, 30);
+            this.BuscarProductoButton.TabIndex = 4;
+            this.BuscarProductoButton.UseVisualStyleBackColor = true;
+            // 
+            // BuscarClienteButton
+            // 
+            this.BuscarClienteButton.Image = global::Vista.Properties.Resources.lupas;
+            this.BuscarClienteButton.Location = new System.Drawing.Point(239, 26);
+            this.BuscarClienteButton.Name = "BuscarClienteButton";
+            this.BuscarClienteButton.Size = new System.Drawing.Size(36, 30);
+            this.BuscarClienteButton.TabIndex = 2;
+            this.BuscarClienteButton.UseVisualStyleBackColor = true;
             // 
             // FacturaForm
             // 

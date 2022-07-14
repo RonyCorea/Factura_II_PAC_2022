@@ -16,8 +16,9 @@ namespace Datos
             int idFactura = 0;
             try
             {
-                string sql = "INSERT INTO factura VALUES (@IdentidadCliente, @Fecha, @ISV, @Descuento, @SubTotal, @Total); SELECT LAST_INSERT_ID();";
-                string sqlDetalle = "INSERT INTO detallefactura VALUES (@IdFactura, @CodigoProducto, @PrecioProducto, @Cantidad, @Total);";
+                string sql = "INSERT INTO factura (IdentidadCliente, Fecha, ISV, Descuento, SubTotal, Total) VALUES (@IdentidadCliente, @Fecha, @ISV, @Descuento, @SubTotal, @Total); SELECT LAST_INSERT_ID();";
+                string sqlDetalle = "INSERT INTO detallefactura (IdFactura, CodigoProducto, PrecioProducto, Cantidad, Total) VALUES (@IdFactura, @CodigoProducto, @PrecioProducto, @Cantidad, @Total);";
+                string sqlExistencia = "UPDATE producto SET Existencia = Existencia - @Cantidad WHERE Codigo = @Codigo";
 
                 using (MySqlConnection _conexion = new MySqlConnection(CanedaConexion.Cadena))
                 {
@@ -32,7 +33,7 @@ namespace Datos
                         comando.Parameters.Add("@SubTotal", MySqlDbType.Decimal).Value = factura.SubTotal;
                         comando.Parameters.Add("@Total", MySqlDbType.Decimal).Value = factura.Total;
 
-                        idFactura = (int)await comando.ExecuteScalarAsync();
+                        idFactura = Convert.ToInt32(await comando.ExecuteScalarAsync());
                     }
 
                     foreach (var item in detalles)
@@ -41,7 +42,7 @@ namespace Datos
                         {
                             comando2.CommandType = System.Data.CommandType.Text;
 
-                            comando2.Parameters.Add("@IdFactura", MySqlDbType.Int32).Value = item.IdFactura;
+                            comando2.Parameters.Add("@IdFactura", MySqlDbType.Int32).Value = idFactura;
                             comando2.Parameters.Add("@CodigoProducto", MySqlDbType.VarChar, 50).Value = item.CodigoProducto;
                             comando2.Parameters.Add("@PrecioProducto", MySqlDbType.Decimal).Value = item.Precio;
                             comando2.Parameters.Add("@Cantidad", MySqlDbType.Int32).Value = item.Cantidad;
@@ -50,10 +51,21 @@ namespace Datos
                             await comando2.ExecuteNonQueryAsync();
                             insert = true;
                         }
+
+                        using (MySqlCommand comando3 = new MySqlCommand(sqlExistencia, _conexion))
+                        {
+                            comando3.CommandType = System.Data.CommandType.Text;
+                            comando3.Parameters.Add("@Codigo", MySqlDbType.VarChar, 50).Value = item.CodigoProducto;
+                            comando3.Parameters.Add("@Cantidad", MySqlDbType.Int32).Value = item.Cantidad;
+
+                            await comando3.ExecuteNonQueryAsync();
+                            insert = true;
+                        }
+
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
             }
             return insert;
