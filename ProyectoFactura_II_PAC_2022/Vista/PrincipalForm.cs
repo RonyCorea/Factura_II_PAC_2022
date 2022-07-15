@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Vista
 {
-    public partial class PrincipalForm : Syncfusion.Windows.Forms.Office2010Form
+    public partial class PrincipalForm : syncfu
     {
         public PrincipalForm()
         {
